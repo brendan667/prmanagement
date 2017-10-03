@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LP.PRManagement.Api</name>
+    </assembly>
+    <members>
+        <member name="M:LP.PRManagement.Api.Controllers.AccountController.Register(LP.PRManagement.Api.Controllers.UserModel)">
+            <summary>
+            Registration method
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
