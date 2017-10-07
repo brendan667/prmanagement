@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace LP.PRManagement.Common
@@ -10,6 +11,13 @@ namespace LP.PRManagement.Common
             if (values == null) return null;
             var array = values.Select(x => x.ToString()).ToArray();
             return string.Join(separator, array);
+        }
+
+        public static Exception ToFirstExceptionOfException(this Exception exception)
+        {
+            var aggregateException = exception as AggregateException;
+            if (aggregateException != null) return aggregateException.ToSimpleException();
+            return exception;
         }
     }
 }

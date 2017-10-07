@@ -46,6 +46,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.6.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.6.1\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.WebApi, Version=4.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.WebApi2.4.1.0\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -113,10 +122,12 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\IocApi.cs" />
     <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="App_Start\WebApiSetup.cs" />
+    <Compile Include="Filters\CaptureExceptionFilter.cs" />
     <Compile Include="Swagger\SwaggerConfig.cs" />
     <Compile Include="Swagger\SwaggerSetup.cs" />
-    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -137,6 +148,14 @@
     <ProjectReference Include="..\LP.PRManagement.Common\LP.PRManagement.Common.csproj">
       <Project>{BD3E6985-9962-4050-A946-0FC98F652395}</Project>
       <Name>LP.PRManagement.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LP.PRManagement.Core\LP.PRManagement.Core.csproj">
+      <Project>{A3210FED-4DF5-4F47-BFD3-B4ABE03296FC}</Project>
+      <Name>LP.PRManagement.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LP.PRManagement.Dal\LP.PRManagement.Dal.csproj">
+      <Project>{1311454E-6EA6-4ABD-9263-2ED3DEDF151F}</Project>
+      <Name>LP.PRManagement.Dal</Name>
     </ProjectReference>
     <ProjectReference Include="..\LP.PRManagement.OAuth\LP.PRManagement.OAuth.csproj">
       <Project>{02E46C90-AD0D-42AA-B064-56BFAE0FD5B4}</Project>

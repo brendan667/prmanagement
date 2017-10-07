@@ -1,4 +1,5 @@
-﻿using LP.PRManagement.OAuth;
+﻿using LP.PRManagement.Api.App_Start;
+using LP.PRManagement.OAuth;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
@@ -20,10 +21,9 @@ namespace LP.PRManagement.Api
         public void Configuration(IAppBuilder app)
         {
             OathAuthorizationSetup.Initialize(app);
-            HttpConfiguration config = new HttpConfiguration();
-            WebApiConfig.Register(config);
-            SwaggerSetup.Initialize(config);
-            app.UseWebApi(config);
+            WebApiSetup webApiSetup = WebApiSetup.Initialize(app, IocApi.Instance.Resolve<IDependencyResolver>());
+            SwaggerSetup.Initialize(webApiSetup.Configuration);
+            //app.UseWebApi(config);
         }
     }
 }
