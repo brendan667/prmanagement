@@ -3,10 +3,7 @@ using Autofac.Integration.WebApi;
 using LP.PRManagement.Api.Controllers;
 using LP.PRManagement.Core.Startup;
 using LP.PRManagement.Dal.Persistance;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using LP.PRManagement.Dal.Sql;
 using System.Web.Http.Dependencies;
 
 namespace LP.PRManagement.Api.App_Start
@@ -78,9 +75,14 @@ namespace LP.PRManagement.Api.App_Start
 
         #region Overrides of IocCoreBase
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <returns></returns>
         protected override IGeneralUnitOfWorkFactory GetInstanceOfIGeneralUnitOfWorkFactory(IComponentContext arg)
         {
-            return new MongoConnectionFactory("");
+            return new SqlConnectionFactory("PRManagement");
         }
 
         #endregion
@@ -89,7 +91,7 @@ namespace LP.PRManagement.Api.App_Start
 
         private void WebApi(ContainerBuilder builder)
         {
-            builder.RegisterApiControllers(typeof(AccountController).Assembly);
+            builder.RegisterApiControllers(typeof(UserController).Assembly);
             builder.Register(t => new AutofacWebApiDependencyResolver(_container)).As<IDependencyResolver>();
         }
 

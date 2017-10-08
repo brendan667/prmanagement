@@ -21,17 +21,11 @@ namespace LP.PRManagement.Core.Startup
 
         private static void SetupManagers(ContainerBuilder builder)
         {
-            //builder.RegisterType<BaseManagerArguments>();
             builder.RegisterType<UserManager>().As<IUserManager>();
-            //builder.RegisterType<UserManager>().As<IUserManager>();
-            //builder.RegisterType<CompanyManager>().As<ICompanyManager>();
-            //builder.RegisterType<FunctionalGroupManager>().As<IFunctionalGroupManager>();
-            //builder.RegisterType<MandateAuditLogManager>().As<IMandateAuditLogManager>();
-            //builder.RegisterType<MandateManager>().As<IMandateManager>();
-            //builder.RegisterType<MandateStatusManager>().As<IMandateStatusManager>();
-            //builder.RegisterType<TriggerAuditLogManager>().As<ITriggerAuditLogManager>();
-            //builder.RegisterType<TriggerManager>().As<ITriggerManager>();
-            //builder.RegisterType<TriggerStateManager>().As<ITriggerStateManager>();
+            builder.RegisterType<ArtistManager>().As<IArtistManager>();
+            builder.RegisterType<ContactInfoGroupManager>().As<IContactInfoGroupManager>();
+            builder.RegisterType<FestivalManager>().As<IFestivalManager>();
+            builder.RegisterType<VenueManager>().As<IVenueManager>();
         }
 
         //private static void SetupValidation(ContainerBuilder builder)

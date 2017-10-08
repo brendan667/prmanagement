@@ -125,10 +125,10 @@
     <Compile Include="App_Start\IocApi.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiSetup.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Filters\CaptureExceptionFilter.cs" />
     <Compile Include="Swagger\SwaggerConfig.cs" />
     <Compile Include="Swagger\SwaggerSetup.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -152,6 +152,10 @@
     <ProjectReference Include="..\LP.PRManagement.Core\LP.PRManagement.Core.csproj">
       <Project>{A3210FED-4DF5-4F47-BFD3-B4ABE03296FC}</Project>
       <Name>LP.PRManagement.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LP.PRManagement.Dal.Sql\LP.PRManagement.Dal.Sql.csproj">
+      <Project>{13385053-1945-44C2-AF85-00BA5F15FFCB}</Project>
+      <Name>LP.PRManagement.Dal.Sql</Name>
     </ProjectReference>
     <ProjectReference Include="..\LP.PRManagement.Dal\LP.PRManagement.Dal.csproj">
       <Project>{1311454E-6EA6-4ABD-9263-2ED3DEDF151F}</Project>

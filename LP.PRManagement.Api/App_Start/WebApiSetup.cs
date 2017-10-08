@@ -61,7 +61,7 @@ namespace LP.PRManagement.Api.App_Start
         {
             configuration.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
+            configuration.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }

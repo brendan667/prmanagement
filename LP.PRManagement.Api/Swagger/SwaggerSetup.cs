@@ -11,12 +11,19 @@ using System.Web.Http.Description;
 
 namespace LP.PRManagement.Api
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class SwaggerSetup
     {
         private static bool _isInitialized;
         private static readonly object _locker = new object();
         private static SwaggerSetup _instance;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="configuration"></param>
         protected SwaggerSetup(HttpConfiguration configuration)
         {
             string version = GetVersion();
@@ -24,15 +31,14 @@ namespace LP.PRManagement.Api
             configuration.EnableSwagger(c =>
             {
                 c.SingleApiVersion(version, "LP.PRManagement API");
-                c.IncludeXmlComments(String.Format(@"{0}\Swagger\LP.PRManagement.Api.XML", AppDomain.CurrentDomain.BaseDirectory));
+                c.IncludeXmlComments(String.Format(@"{0}\bin\LP.PRManagement.Api.XML", AppDomain.CurrentDomain.BaseDirectory));
                 c.OperationFilter<AddAuthorizationResponseCodes>();
-                c.RootUrl((x) => "http://localhost:51256/");
-            });
-                //.EnableSwaggerUi(c =>
-                //{
-                //    Assembly resourceAssembly = typeof(SwaggerSetup).Assembly;
-                //    c.InjectJavaScript(resourceAssembly, "Barclays.Now.Fungible.Api.Swagger.onComplete.js");
-                //});
+                c.RootUrl((x) => "http://localhost:51256");
+            })
+                .EnableSwaggerUi(c =>
+                {
+                    c.DisableValidator();
+                });
 
         }
 
@@ -40,13 +46,17 @@ namespace LP.PRManagement.Api
 
         private static string GetVersion()
         {
-            return typeof(AccountController).Assembly.GetName().Version.ToString().Split('.').Take(3).StringJoin(".");
+            return typeof(UserController).Assembly.GetName().Version.ToString().Split('.').Take(3).StringJoin(".");
         }
 
         #endregion
 
         #region Initialize
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="configuration"></param>
         public static void Initialize(HttpConfiguration configuration)
         {
             if (_isInitialized) return;
@@ -62,7 +72,9 @@ namespace LP.PRManagement.Api
 
         #endregion
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         public class AddAuthorizationResponseCodes : IOperationFilter
         {
             #region IOperationFilter Members

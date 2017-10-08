@@ -37,7 +37,7 @@ namespace LP.PRManagement.Dal.Sql.Migrations
                     {
                         Log.DebugFormat("Updating no: {0}", i);
                         IMigration migrateInitialize = _updates[i];
-                        EnsureThatVersionDoesNotExistThenUpdate(versions, i, migrateInitialize, repository, context).Wait();
+                        EnsureThatVersionDoesNotExistThenUpdate(versions, i+1, migrateInitialize, repository, context).Wait();
                     }
                     Log.Info("Done");
 
@@ -51,12 +51,12 @@ namespace LP.PRManagement.Dal.Sql.Migrations
         private async Task EnsureThatVersionDoesNotExistThenUpdate(IEnumerable<DbVersion> versions, int i, 
             IMigration migrateInitialize, SqlRepository<DbVersion> repository, PRManagementContext context)
         {
-            DbVersion version = versions.FirstOrDefault(x => x.Version == i);
+            DbVersion version = versions.FirstOrDefault(x => x.Id == i);
             if (version == null)
             {
                 Log.Info(string.Format("Running version update {0}", migrateInitialize.GetType().Name));
                 await RunTheUpdate(migrateInitialize, context);
-                var dbVersion1 = new DbVersion { Version = i, Name = migrateInitialize.GetType().Name };
+                var dbVersion1 = new DbVersion { Id = i, Name = migrateInitialize.GetType().Name };
                 await repository.Add(dbVersion1);
             }
         }

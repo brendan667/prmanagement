@@ -7,7 +7,7 @@ namespace LP.PRManagement.Common.Models.Domain.Interface
     /// </summary>
     public interface IBaseDalModel
     {
-        Guid Id { get; set; }
+        int Id { get; set; }
         DateTime CreatedDate { get; set; }
     }
 }

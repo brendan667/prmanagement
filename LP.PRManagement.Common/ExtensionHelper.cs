@@ -19,5 +19,14 @@ namespace LP.PRManagement.Common
             if (aggregateException != null) return aggregateException.ToSimpleException();
             return exception;
         }
+
+        public static Exception ToSimpleException(this AggregateException exception)
+        {
+            if (exception.InnerExceptions.Count == 1)
+            {
+                return exception.InnerExceptions.First();
+            }
+            return new Exception(exception.InnerExceptions.Select(x => x.Message).StringJoin(), exception);
+        }
     }
 }

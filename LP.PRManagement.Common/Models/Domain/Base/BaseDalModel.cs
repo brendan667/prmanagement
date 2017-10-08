@@ -1,5 +1,7 @@
 ﻿using LP.PRManagement.Common.Models.Domain.Interface;
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LP.PRManagement.Common.Models.Domain.Base
 {
@@ -7,11 +9,12 @@ namespace LP.PRManagement.Common.Models.Domain.Base
     {
         public BaseDalModel()
         {
-            Id = Guid.NewGuid();
             CreatedDate = DateTime.Now;
         }
 
-        public Guid Id { get ; set ; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        public int Id { get ; set ; }
         public DateTime CreatedDate { get; set; }
     }
 }

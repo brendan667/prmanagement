@@ -35,6 +35,7 @@
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,12 +46,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExtensionHelper.cs" />
+    <Compile Include="Models\Domain\ApplyingType.cs" />
+    <Compile Include="Models\Domain\Artist.cs" />
+    <Compile Include="Models\Domain\ArtistCalendar.cs" />
     <Compile Include="Models\Domain\Base\BaseDalModel.cs" />
+    <Compile Include="Models\Domain\ContactInfo.cs" />
+    <Compile Include="Models\Domain\ContactInfoGroup.cs" />
+    <Compile Include="Models\Domain\ContactInfoType.cs" />
     <Compile Include="Models\Domain\DbVersion.cs" />
+    <Compile Include="Models\Domain\Festival.cs" />
     <Compile Include="Models\Domain\Interface\IBaseDalModel.cs" />
+    <Compile Include="Models\Domain\ArtistLink.cs" />
+    <Compile Include="Models\Domain\Province.cs" />
     <Compile Include="Models\Domain\User.cs" />
+    <Compile Include="Models\Domain\Venue.cs" />
     <Compile Include="Models\ErrorMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\PasswordHash.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

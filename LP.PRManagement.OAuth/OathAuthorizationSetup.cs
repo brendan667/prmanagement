@@ -1,4 +1,5 @@
-﻿using LP.PRManagement.OAuth.Default;
+﻿using Autofac;
+using LP.PRManagement.OAuth.Default;
 using LP.PRManagement.OAuth.Interfaces;
 using LP.PRManagement.OAuth.Providers;
 using Microsoft.Owin;
@@ -12,12 +13,12 @@ namespace LP.PRManagement.OAuth
     {
         private static bool _isInitialized;
 
-        public static void Initialize(IAppBuilder app)
+        public static void Initialize(IAppBuilder app, IContainer container)
         {
-            Initialize(app, new OAuthDataManager(), new SHA256Security());
+            Initialize(app, new OAuthDataManager(), new SHA256Security(), container);
         }
 
-        public static void Initialize(IAppBuilder app, IOAuthDataManager oauthDataManager, IOAuthSecurity oauthSecurity)
+        public static void Initialize(IAppBuilder app, IOAuthDataManager oauthDataManager, IOAuthSecurity oauthSecurity, IContainer container)
         {
             if (!_isInitialized)
             {
@@ -27,7 +28,7 @@ namespace LP.PRManagement.OAuth
                     AllowInsecureHttp = true,
                     TokenEndpointPath = new PathString("/token"),
                     AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(TimeSpan.FromDays(1).TotalMinutes),
-                    Provider = new SimpleAuthorizationServerProvider(),
+                    Provider = new SimpleAuthorizationServerProvider(container),
                     RefreshTokenProvider = new ApplicationRefreshTokenProvider(oauthDataManager, oauthSecurity)
                 };
 

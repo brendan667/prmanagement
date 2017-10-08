@@ -1,11 +1,12 @@
 ﻿using LP.PRManagement.Common.Models.Domain.Base;
+using System.Collections.Generic;
 
 namespace LP.PRManagement.Common.Models.Domain
 {
-    public class User : BaseDalModel
+    public class ContactInfoType : BaseDalModel
     {
         public string Name { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
+
+        public virtual IList<ContactInfo> ContactInfos { get; set; }
     }
 }

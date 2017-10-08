@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.6.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.6.1\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
@@ -74,6 +77,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LP.PRManagement.Common\LP.PRManagement.Common.csproj">
+      <Project>{BD3E6985-9962-4050-A946-0FC98F652395}</Project>
+      <Name>LP.PRManagement.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LP.PRManagement.Dal\LP.PRManagement.Dal.csproj">
+      <Project>{1311454E-6EA6-4ABD-9263-2ED3DEDF151F}</Project>
+      <Name>LP.PRManagement.Dal</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

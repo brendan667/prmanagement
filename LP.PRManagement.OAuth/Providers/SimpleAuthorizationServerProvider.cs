@@ -1,4 +1,7 @@
-﻿using Microsoft.Owin.Security;
+﻿using Autofac;
+using LP.PRManagement.Common;
+using LP.PRManagement.Dal.Persistance;
+using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -11,6 +14,13 @@ namespace LP.PRManagement.OAuth.Providers
     /// </summary>
     public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
+        public IGeneralUnitOfWork GeneralUnitOfWork { get; }
+
+        public SimpleAuthorizationServerProvider(IContainer container)
+        {
+            GeneralUnitOfWork = container.Resolve<IGeneralUnitOfWork>();
+        }
+
         /// <summary>
         /// Validate client authentication override
         /// </summary>
@@ -31,18 +41,19 @@ namespace LP.PRManagement.OAuth.Providers
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+            
+            var user = await GeneralUnitOfWork.User.FindOne(x => x.Email.ToLower() == context.UserName.ToLower());
+            if (user == null)
+            {
+                context.SetError("invalid_grant", "The user name or password is incorrect.");
+                return;
+            }
 
-            //TODO: Add repo and find user stuff
-            //using (AuthRepository _repo = new AuthRepository())
-            //{
-            //    IdentityUser user = await _repo.FindUser(context.UserName, context.Password);
-
-            //    if (user == null)
-            //    {
-            //        context.SetError("invalid_grant", "The user name or password is incorrect.");
-            //        return;
-            //    }
-            //}
+            if (!PasswordHash.ValidatePassword(context.Password, user.Password))
+            {
+                context.SetError("invalid_grant", "The user name or password is incorrect.");
+                return;
+            }
 
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
             identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
@@ -52,8 +63,7 @@ namespace LP.PRManagement.OAuth.Providers
             var props = new AuthenticationProperties(new Dictionary<string, string>
                 {
                     {"userName", context.UserName},
-                    //{"isAdmin", ""/*response.User.AdminUser.ToString()*/},
-                    {"fullname", "" /*response.User.FirstName+" "+response.User.LastName*/}
+                    {"fullname", user.Name}
                 });
 
             var ticket = new AuthenticationTicket(identity, props);

@@ -16,21 +16,20 @@ namespace LP.PRManagement.Dal.Sql
         }
 
         public SqlGeneralUnitOfWork()
-            : this("")
+            : this("PRManagement")
         {
 
         }
 
         public SqlGeneralUnitOfWork(string connectionString)
         {
-            string databaseName = MongoDbConnectionHelper.GetDatabaseNameFromUri(connectionString);
-            Log.Info("Mongo connect to " + connectionString);
+            string databaseName = SqlConnectionHelper.GetDatabaseNameFromUri(connectionString);
+            Log.Info("Sql connect to " + connectionString);
             try
             {
-                var client = new MongoClient(connectionString);
-                var mongoDatabase = client.GetDatabase(databaseName);
-                SqlConfiguration.Instance().Update(mongoDatabase).Wait();
-                InitializeRepositories(mongoDatabase);
+                var context = new PRManagementContext(connectionString);
+                SqlConfiguration.Instance().Update(context).Wait();
+                InitializeRepositories(context);
             }
             catch (Exception exception)
             {
@@ -50,32 +49,36 @@ namespace LP.PRManagement.Dal.Sql
 
         #region Implementation of IGeneralUnitOfWork
 
-        public IRepository<User> Users { get; private set; }
-        //public IRepository<Role> Roles { get; private set; }
-        //public IRepository<Company> Companies { get; private set; }
-        //public IRepository<Trigger> Triggers { get; private set; }
-        //public IRepository<TriggerState> TriggerStates { get; private set; }
-        //public IRepository<TriggerAuditLog> TriggerAuditLog { get; private set; }
-        //public IRepository<FunctionalGroup> FunctionalGroups { get; private set; }
-        //public IRepository<Mandate> Mandates { get; private set; }
-        //public IRepository<MandateAuditLog> MandateAuditLog { get; private set; }
-        //public IRepository<MandateStatus> MandateStatus { get; private set; }
+        public IRepository<User> User { get; private set; }
+        public IRepository<DbVersion> DbVersion { get; private set; }
+        public IRepository<Province> Province { get; private set; }
+        public IRepository<Venue> Venue { get; private set; }
+        public IRepository<Festival> Festival { get; private set; }
+        public IRepository<ApplyingType> ApplyingType { get; private set; }
+        public IRepository<Artist> Artist { get; private set; }
+        public IRepository<ArtistLink> ArtistLink { get; private set; }
+        public IRepository<ArtistCalendar> ArtistCalendar { get; private set; }
+        public IRepository<ContactInfoGroup> ContactInfoGroup { get; private set; }
+        public IRepository<ContactInfo> ContactInfo { get; private set; }
+        public IRepository<ContactInfoType> ContactInfoType { get; private set; }
 
         #endregion
 
         private void InitializeRepositories(PRManagementContext context)
         {
             SqlConfiguration.Instance().Update(context).Wait();
-            Users = new SqlRepository<User>(context);
-            //Roles = new MongoRepository<Role>(database);
-            //Companies = new MongoRepository<Company>(database);
-            //Triggers = new MongoRepository<Trigger>(database);
-            //TriggerStates = new MongoRepository<TriggerState>(database);
-            //TriggerAuditLog = new MongoRepository<TriggerAuditLog>(database);
-            //FunctionalGroups = new MongoRepository<FunctionalGroup>(database);
-            //Mandates = new MongoRepository<Mandate>(database);
-            //MandateAuditLog = new MongoRepository<MandateAuditLog>(database);
-            //MandateStatus = new MongoRepository<MandateStatus>(database);
+            User = new SqlRepository<User>(context);
+            DbVersion = new SqlRepository<DbVersion>(context);
+            Province = new SqlRepository<Province>(context);
+            Venue = new SqlRepository<Venue>(context);
+            Festival = new SqlRepository<Festival>(context);
+            ApplyingType = new SqlRepository<ApplyingType>(context);
+            Artist = new SqlRepository<Artist>(context);
+            ArtistLink = new SqlRepository<ArtistLink>(context);
+            ArtistCalendar = new SqlRepository<ArtistCalendar>(context);
+            ContactInfoGroup = new SqlRepository<ContactInfoGroup>(context);
+            ContactInfo = new SqlRepository<ContactInfo>(context);
+            ContactInfoType = new SqlRepository<ContactInfoType>(context);
         }
     }
 }
