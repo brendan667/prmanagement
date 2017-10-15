@@ -10,11 +10,13 @@ namespace LP.PRManagement.Common.Models.Domain.Base
         public BaseDalModel()
         {
             CreatedDate = DateTime.Now;
+            RefId = Guid.NewGuid();
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get ; set ; }
+        public Guid RefId { get; set; }
         public DateTime CreatedDate { get; set; }
     }
 }

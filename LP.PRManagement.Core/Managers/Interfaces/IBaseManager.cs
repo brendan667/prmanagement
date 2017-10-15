@@ -7,8 +7,8 @@ namespace LP.PRManagement.Core.Managers.Interfaces
     public interface IBaseManager<T>
     {
         Task<List<T>> GetAll();
-        Task<T> Get(int id);
-        Task<T> Delete(int id);
+        Task<T> Get(Guid refId);
+        Task<T> Delete(Guid refId);
         Task<T> Update(T entity);
         Task<T> Insert(T entity);
     }

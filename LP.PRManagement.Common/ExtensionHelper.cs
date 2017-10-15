@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace LP.PRManagement.Common
@@ -27,6 +28,12 @@ namespace LP.PRManagement.Common
                 return exception.InnerExceptions.First();
             }
             return new Exception(exception.InnerExceptions.Select(x => x.Message).StringJoin(), exception);
+        }
+
+        public static string ReadToString(this Stream stream)
+        {
+            var streamReader = new StreamReader(stream);
+            return streamReader.ReadToEnd();
         }
     }
 }

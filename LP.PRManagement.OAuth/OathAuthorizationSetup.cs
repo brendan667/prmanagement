@@ -27,7 +27,7 @@ namespace LP.PRManagement.OAuth
                 {
                     AllowInsecureHttp = true,
                     TokenEndpointPath = new PathString("/token"),
-                    AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(TimeSpan.FromDays(1).TotalMinutes),
+                    AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
                     Provider = new SimpleAuthorizationServerProvider(container),
                     RefreshTokenProvider = new ApplicationRefreshTokenProvider(oauthDataManager, oauthSecurity)
                 };

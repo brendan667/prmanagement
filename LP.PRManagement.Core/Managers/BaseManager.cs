@@ -2,6 +2,7 @@
 using LP.PRManagement.Common.Models.Domain.Base;
 using LP.PRManagement.Core.Managers.Interfaces;
 using LP.PRManagement.Dal.Persistance;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -24,20 +25,20 @@ namespace LP.PRManagement.Core.Managers
 
         protected abstract IRepository<T> Repository { get; }
 
-        public async Task<T> Delete(int id)
+        public async Task<T> Delete(Guid refId)
         {
-            T entity = await Get(id);
+            T entity = await Get(refId);
             if(entity != null)
             {
-                _log.Info($"Removing entity with id: {id}");
-                await Repository.Remove(x => x.Id == id);
+                _log.Info($"Removing entity with id: {refId}");
+                await Repository.Remove(x => x.RefId == refId);
             }
             return entity;
         }
 
-        public async Task<T> Get(int id)
+        public async Task<T> Get(Guid refId)
         {
-            return await Repository.FindOne(x => x.Id == id);
+            return await Repository.FindOne(x => x.RefId == refId);
         }
 
         public async Task<List<T>> GetAll()

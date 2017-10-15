@@ -2,6 +2,7 @@
 using Autofac.Integration.WebApi;
 using LP.PRManagement.Api.Controllers;
 using LP.PRManagement.Core.Startup;
+using LP.PRManagement.Core.Startup.Mappers;
 using LP.PRManagement.Dal.Persistance;
 using LP.PRManagement.Dal.Sql;
 using System.Web.Http.Dependencies;
@@ -25,6 +26,7 @@ namespace LP.PRManagement.Api.App_Start
         {
             var builder = new ContainerBuilder();
             SetupCore(builder);
+            MapApi.MapUserModel();
             WebApi(builder);
             _container = builder.Build();
 

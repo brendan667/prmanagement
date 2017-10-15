@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using LP.PRManagement.Common;
 using LP.PRManagement.Core.Managers;
 using LP.PRManagement.Core.Managers.Interfaces;
 using LP.PRManagement.Dal.Persistance;
@@ -11,6 +12,12 @@ namespace LP.PRManagement.Core.Startup
         {
             SetupDb(builder);
             SetupManagers(builder);
+            SetupConfig(builder);
+        }
+
+        private static void SetupConfig(ContainerBuilder builder)
+        {
+            builder.RegisterType<Config>().As<IConfig>();
         }
 
         protected virtual void SetupDb(ContainerBuilder builder)

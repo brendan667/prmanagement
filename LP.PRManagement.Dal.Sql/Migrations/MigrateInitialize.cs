@@ -21,7 +21,6 @@ namespace LP.PRManagement.Dal.Sql.Migrations
             await AddStaticApplyingTypes();
             await AddStaticContactInfoTypes();
         }
-
         
         private void InitializeRepos(PRManagementContext context)
         {
@@ -30,7 +29,6 @@ namespace LP.PRManagement.Dal.Sql.Migrations
             _applyingType = new SqlRepository<ApplyingType>(context);
             _contactInfoType = new SqlRepository<ContactInfoType>(context);
         }
-
 
         #region Table Adds
 
@@ -55,7 +53,7 @@ namespace LP.PRManagement.Dal.Sql.Migrations
             await _users.Add(new User
             {
                 Name = "Louise Pieterse",
-                Email = "test@test.com",
+                Email = "louisepietersephoto@gmail.com",
                 Password = PasswordHash.CreateHash("P@ssword123")
             });
         }
@@ -138,7 +136,5 @@ namespace LP.PRManagement.Dal.Sql.Migrations
         }
 
         #endregion
-
-
     }
 }

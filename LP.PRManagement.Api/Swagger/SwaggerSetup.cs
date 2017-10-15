@@ -6,6 +6,7 @@ using System;
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -30,14 +31,17 @@ namespace LP.PRManagement.Api
 
             configuration.EnableSwagger(c =>
             {
-                c.SingleApiVersion(version, "LP.PRManagement API");
-                c.IncludeXmlComments(String.Format(@"{0}\bin\LP.PRManagement.Api.XML", AppDomain.CurrentDomain.BaseDirectory));
+                c.SingleApiVersion("v1", "LP.PRManagement API")
+                    .Description(EmbededResourceHelper.ReadResource("LP.PRManagement.Api.Swagger.loginForm.html",
+                        typeof(SwaggerSetup).Assembly)); ;
+                c.IncludeXmlComments($@"{AppDomain.CurrentDomain.BaseDirectory}\bin\LP.PRManagement.Api.XML");
                 c.OperationFilter<AddAuthorizationResponseCodes>();
                 c.RootUrl((x) => "http://localhost:51256");
             })
                 .EnableSwaggerUi(c =>
                 {
-                    c.DisableValidator();
+                    Assembly resourceAssembly = typeof(SwaggerSetup).Assembly;
+                    c.InjectJavaScript(resourceAssembly, "LP.PRManagement.Api.Swagger.onComplete.js");
                 });
 
         }
